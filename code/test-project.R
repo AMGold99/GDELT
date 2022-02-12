@@ -5,6 +5,10 @@
 #
 #===============================
 
+# set to TRUE if you are okay with running billable code; 
+# set to FALSE if you want warnings
+billable <- TRUE 
+
 
 ####-------PREAMBLE----------------####
 
@@ -36,4 +40,33 @@ con <- DBI::dbConnect(
   billing = "sound-essence-338916"   # project ID
 )
 
+# list tables contained within the database connection you just made
 DBI::dbListTables(con)
+
+# asdf
+skeds <- dplyr::tbl(con, "schedules")
+
+# preview the dataframe
+dplyr::glimpse(skeds)
+
+# download actual data
+
+if(billable) {
+  
+  available_teams <- dplyr::select(skeds, homeTeamName) %>%
+    dplyr::distinct() %>%
+    dplyr::collect() %>% # stores query as local dataframe
+    # HELPFUL HINT: use show_query() to reveal the raw SQL query cod
+    dplyr::show_query()
+  
+  # HELPFUL HINT: use show_query() to reveal the raw SQL query code
+    dplyr::select(skeds, homeTeamName) %>%
+    dplyr::distinct() %>%
+    dplyr::show_query()
+  
+  
+} else {
+  stop("Warning! Billable set to false. Running this code would reduce free query quota.")
+}
+
+

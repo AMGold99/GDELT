@@ -1,6 +1,7 @@
 #===============================
 #
 #   Second Test BigQuery Project
+#   Uses GDELT-BQ data
 #   Asa Gold, Feb 2022
 #
 #===============================

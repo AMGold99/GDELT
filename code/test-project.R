@@ -53,11 +53,11 @@ dplyr::glimpse(skeds)
 
 if(billable) {
   
-  available_teams <- dplyr::select(skeds, homeTeamName) %>%
+  available_teams <- skeds %>%
+    dplyr::select(homeTeamName) %>%
+    dplyr::filter(homeTeamName == "Reds") %>%
     dplyr::distinct() %>%
-    dplyr::collect() %>% # stores query as local dataframe
-    # HELPFUL HINT: use show_query() to reveal the raw SQL query cod
-    dplyr::show_query()
+    dplyr::collect()
   
   # HELPFUL HINT: use show_query() to reveal the raw SQL query code
     dplyr::select(skeds, homeTeamName) %>%

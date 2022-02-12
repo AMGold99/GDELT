@@ -18,7 +18,11 @@ Resulting datatables.
 
 ## Navigating BigQuery
 
+More to come.
+
 ## Creating a Project
+
+More to come.
 
 ## Authentication
 

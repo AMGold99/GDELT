@@ -6,6 +6,6 @@ Scripts in this repo are test cases using sample data. No billing has been attac
 
 ### Packages Required
 
-* dplyr
-* DBI
-* bigrquery
+* [dplyr](https://dplyr.tidyverse.org/)
+* [DBI](https://dbi.r-dbi.org/)
+* [bigrquery](https://bigrquery.r-dbi.org/)

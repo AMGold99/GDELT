@@ -18,7 +18,7 @@ library(bigrquery)
 setwd("/home/gold1/GDELT")
 
 # specify location of service account token
-test_token_location <- file.path(getwd(),"tokens","another-test-341117-c766203d1673.json")
+test_token_location <- file.path(getwd(),"tokens","sound-essence-338916-4e13b1f2db43.json")
 
 # authorize BigQuery connection w/ service account token
 bigrquery::bq_auth(path = test_token_location) 
@@ -31,9 +31,8 @@ bigrquery::bq_auth(path = test_token_location)
 # create database connection object
 con <- DBI::dbConnect(
   bigrquery::bigquery(),             # specify that connection will be to BigQuery
-  project = "bigquery-public-data",  # table within the project
-  dataset = "baseball",              # dataset within the table
-  billing = "sound-essence-338916"   # project ID
+  project = "gdelt-bq",              # database
+  dataset = "full",                  # dataset within the table
 )
 
 DBI::dbListTables(con)

@@ -43,7 +43,7 @@ con <- DBI::dbConnect(
 # list tables contained within the database connection you just made
 DBI::dbListTables(con)
 
-# asdf
+# instatiate dataframe from table within database connection
 skeds <- dplyr::tbl(con, "schedules")
 
 # preview the dataframe
@@ -68,5 +68,4 @@ if(billable) {
 } else {
   stop("Warning! Billable set to false. Running this code would reduce free query quota.")
 }
-
 

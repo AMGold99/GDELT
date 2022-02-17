@@ -11,6 +11,22 @@ Scripts in this repo are test cases using sample data. No billing has been attac
 ### Code
 
 Query scripts.
+Example SQL query below. Sifts through data added between Jan 1 and Feb 1, 2010, and returns all education-related protest events occuring in the United States
+```
+SELECT * FROM `gdelt-bq.full.events_partitioned`
+WHERE (
+    (_PARTITIONTIME > "2010-01-01" 
+    AND 
+    _PARTITIONTIME < "2010-02-01") 
+AND (`ActionGeo_CountryCode` = 'US') 
+AND (
+    REGEXP_CONTAINS(`Actor1Code`, 'EDU') 
+    OR 
+    REGEXP_CONTAINS(`Actor2Code`, 'EDU')
+    )
+AND `EventRootCode` = '14'
+)
+```
 
 ### Output
 

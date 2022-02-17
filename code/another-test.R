@@ -34,19 +34,25 @@ bigrquery::bq_auth(path = test_token_location)
 con <- DBI::dbConnect(
   bigrquery::bigquery(),             # specify that connection will be to BigQuery
   project = "gdelt-bq",              # database
-  dataset = "hathitrustbooks",                  # dataset within the table
+  dataset = "full",                  # dataset within the table
   billing = "another-test-341117"
 )
 
 DBI::dbListTables(con)
 
 
-events <- dplyr::tbl(con, "1800")
-
+events <- dplyr::tbl(con, "events_partitioned")
+glimpse(events)
 
 # design query
 event_query <- events %>%              
-  dplyr::select(DATE) 
+  dplyr::select(dplyr::everything()) %>%
+  dplyr::filter(
+    `DATEADDED` > 20000101 & `DATEADDED` < 20000201, # still can't figure out PARTITIONTIME issue (it's a pseudocolumn, R won't recognize it)
+    ActionGeo_CountryCode == "US",
+    (str_detect(Actor1Code, "EDU") | str_detect(Actor2Code, "EDU"))
+    ) %>%
+  show_query()
 
 
 # activate query and pull data into local memory

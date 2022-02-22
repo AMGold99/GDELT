@@ -2,7 +2,7 @@
 #
 #   Second Test BigQuery Project
 #   Uses GDELT-BQ data
-#   Asa Gold, Feb 2022
+#   Asa Gold, February 2022
 #
 #===============================
 
@@ -23,7 +23,7 @@ setwd("/home/gold1/GDELT")
 test_token_location <- file.path(getwd(),"tokens","another-test-341117-c766203d1673.json")
 
 # authorize BigQuery connection w/ service account token
-bigrquery::bq_auth(path = test_token_location) 
+bigrquery::bq_auth(path = test_token_location)
 
 # NOTE: You need to create a new service account token for each project (not for each account)
 
@@ -35,14 +35,14 @@ con <- DBI::dbConnect(
   bigrquery::bigquery(),             # specify that connection will be to BigQuery
   project = "gdelt-bq",              # database
   dataset = "full",                  # dataset within the table
-  billing = "another-test-341117"
+  billing = "another-test-341117" 
 )
 
 DBI::dbListTables(con)
 
 
 events <- dplyr::tbl(con, "events_partitioned")
-glimpse(events)
+dplyr::glimpse(events)
 
 # design query
 event_query <- events %>%              

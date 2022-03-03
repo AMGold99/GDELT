@@ -1,8 +1,8 @@
 #===============================
 #
-#   Second Test BigQuery Project
-#   Uses GDELT-BQ data
-#   Asa Gold, February 2022
+#   Query GDELT protest data
+#   'gdelt-bq.full.events_partitioned
+#   'BQ project: another-test
 #
 #===============================
 
@@ -38,27 +38,22 @@ con <- DBI::dbConnect(
   billing = "another-test-341117" 
 )
 
+# view tables within the database connection
 DBI::dbListTables(con)
 
 
-events <- dplyr::tbl(con, "events_partitioned")
-dplyr::glimpse(events)
 
-# design query
-event_query <- events %>%              
-  dplyr::select(dplyr::everything()) %>%
-  dplyr::filter(
-    `_PARTITIONTIME` >= "2016-01-02",
-    `_PARTITIONTIME` < "2016-01-03",
-    ActionGeo_CountryCode == "US",
-    (str_detect(Actor1Code, "EDU") | str_detect(Actor2Code, "EDU"))
-    ) %>%
-  show_query()
+# design SQL query
+sql <- "SELECT * FROM `events_partitioned`
+        WHERE _PARTITIONTIME > '2000-01-01' 
+              AND 
+              _PARTITIONTIME < '2000-01-04'"
 
 
-
-# activate query and pull data into local memory
 # CAUTION: BILLABLE
-event_df <- event_query %>%
-  dplyr::collect()
+# execute query and create dataframe
+df <- dbGetQuery(conn = con,
+                 statement = sql)
+
+
 

@@ -17,7 +17,7 @@ library(bigrquery)
 library(dbplyr)
 
 # set working directory to project folder (only necessary to run if not in project)
-setwd("/home/gold1/GDELT")
+# setwd("/home/[username]/GDELT")
 
 # specify location of service account token
 test_token_location <- file.path(getwd(),"tokens","another-test-341117-c766203d1673.json")
@@ -48,11 +48,13 @@ dplyr::glimpse(events)
 event_query <- events %>%              
   dplyr::select(dplyr::everything()) %>%
   dplyr::filter(
-    `DATEADDED` > 20000101 & `DATEADDED` < 20000201, # still can't figure out PARTITIONTIME issue (it's a pseudocolumn, R won't recognize it)
+    `_PARTITIONTIME` >= "2016-01-02",
+    `_PARTITIONTIME` < "2016-01-03",
     ActionGeo_CountryCode == "US",
     (str_detect(Actor1Code, "EDU") | str_detect(Actor2Code, "EDU"))
     ) %>%
   show_query()
+
 
 
 # activate query and pull data into local memory

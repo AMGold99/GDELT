@@ -11,6 +11,7 @@ Scripts in this repo are test cases using sample data. No billing has been attac
 ### Code
 
 **WARNING: The query below is outdated. We will be using literal SQL queries via the dbGetQuery function. Will update as soon as minimum usable query is designed.**
+
 Query scripts.
 Example SQL query below. Sifts through data added between Jan 1 and Feb 1, 2010, and returns all education-related protest events occuring in the United States
 ```

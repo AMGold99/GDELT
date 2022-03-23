@@ -13,10 +13,10 @@ library(readr)
 ```{r}
 mn <- read_csv("code/Minnesota - Sheet1.csv")
 
-mn <- mn %>%
+mn <- mn |>
   filter(HIGHDEG >= "3")
 
-names <- mn %>%
+names <- mn |>
   select(4)
 ```
 

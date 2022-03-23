@@ -1,0 +1,22 @@
+---
+title: "Newspapers"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(readr)
+```
+
+
+```{r}
+mn <- read_csv("code/Minnesota - Sheet1.csv")
+
+mn <- mn %>%
+  filter(HIGHDEG >= "3")
+
+names <- mn %>%
+  select(4)
+```
+
